@@ -1,0 +1,13 @@
+# Xcode
+ios-app/*.xcodeproj/xcuserdata/
+ios-app/*.xcworkspace/xcuserdata/
+ios-app/DerivedData/
+ios-app/.build/
+
+# CMake / OBS plugin
+obs-plugin/build/
+obs-plugin/cmake-build-*/
+
+# OS
+.DS_Store
+Thumbs.db
