@@ -4,7 +4,7 @@ import CoreMedia
 final class CameraManager: NSObject {
     var onFrame: ((CMSampleBuffer) -> Void)?
 
-    private let session     = AVCaptureSession()
+    let session              = AVCaptureSession()
     private var videoOutput = AVCaptureVideoDataOutput()
     private let queue       = DispatchQueue(label: "ddp.camera", qos: .userInteractive)
 
@@ -39,7 +39,11 @@ final class CameraManager: NSObject {
         if session.canAddOutput(videoOutput) { session.addOutput(videoOutput) }
 
         // Orientacion
-        videoOutput.connection(with: .video)?.videoOrientation = .landscapeRight
+        if let conn = videoOutput.connection(with: .video) {
+            if conn.isVideoRotationAngleSupported(0) {
+                conn.videoRotationAngle = 0  // landscape
+            }
+        }
 
         session.commitConfiguration()
     }
